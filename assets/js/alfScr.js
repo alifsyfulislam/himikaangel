@@ -124,7 +124,7 @@ function totalPay(val) {
     for (var z= 0; z < summaryPersonPrice.length;z++){
         tot =+ val;
     }
-    console.log(tot);
+    return tot;
 }
 
 
