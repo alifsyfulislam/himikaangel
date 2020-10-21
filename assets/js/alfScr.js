@@ -43,7 +43,30 @@ for (selectionFlagDe = 0;selectionFlagDe < packageCounterDecrease.length; select
         }
     });
 }
+for (selectionFlagDe = 0;selectionFlagDe < packageCounterDecrease.length; selectionFlagDe++){
+    packageCounterDecrease[selectionFlagDe].addEventListener('touchstart', function () {
+        if (finalSelection=="monthly"){
+            if (totalMonthlyPackage>1){
+                --totalMonthlyPackage;
+                totalYearlyPackage = 0;
+                //type with total
+                var itemIndex = indexIn("." + this.classList[selectionFlagDe], this);
 
+                makeInvoice(finalSelection, totalMonthlyPackage,itemIndex);
+            }
+        }
+        else if (finalSelection=="yearly"){
+            console.log(selectionFlagDe +finalSelection);
+            --totalYearlyPackage;
+            console.log(totalYearlyPackage);
+            var itemIndex = indexIn("." + this.classList[selectionFlagIn], this);
+            makeInvoice(finalSelection, totalYearlyPackage,itemIndex);
+            totalMonthlyPackage = 1;
+        }else{
+            packageDuration[--selectionFlagDe].style.border = "1px solid red";
+        }
+    });
+}
 
 for (selectionFlagIn = 0;selectionFlagIn < packageCounterIncrease.length; selectionFlagIn++){
     packageCounterIncrease[selectionFlagIn].addEventListener('click', function (e) {
@@ -68,9 +91,39 @@ for (selectionFlagIn = 0;selectionFlagIn < packageCounterIncrease.length; select
     });
 }
 
+for (selectionFlagIn = 0;selectionFlagIn < packageCounterIncrease.length; selectionFlagIn++){
+    packageCounterIncrease[selectionFlagIn].addEventListener('touchstart', function (e) {
+        if (finalSelection=="monthly"){
+            totalMonthlyPackage++;
+            totalYearlyPackage = 0;
+            //type with total
+            var itemIndex = indexIn("." + this.classList[selectionFlagIn], this);
+            makeInvoice(finalSelection, totalMonthlyPackage,itemIndex);
+        }
+        else if (finalSelection=="yearly"){
+            console.log(selectionFlagIn +finalSelection);
+            totalYearlyPackage++;
+            console.log(totalYearlyPackage);
+            var itemIndex = indexIn("." + this.classList[selectionFlagIn], this);
+            makeInvoice(finalSelection, totalYearlyPackage,itemIndex);
+            totalMonthlyPackage = 1;
+        }
+        else{
+            packageDuration[--selectionFlagIn].style.border = "1px solid red";
+        }
+    });
+}
+
 
 for (selectionDuration = 0;selectionDuration < packageDuration.length; selectionDuration++){
     packageDuration[selectionDuration].addEventListener('click', function () {
+        finalSelection = this.options[this.selectedIndex].value;
+        this.style.border = "1px solid grey";
+    });
+}
+
+for (selectionDuration = 0;selectionDuration < packageDuration.length; selectionDuration++){
+    packageDuration[selectionDuration].addEventListener('touchstart', function () {
         finalSelection = this.options[this.selectedIndex].value;
         this.style.border = "1px solid grey";
     });
